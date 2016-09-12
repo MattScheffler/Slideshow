@@ -24,11 +24,6 @@ namespace Slideshow
             }
         }
 
-        private void textBoxPathDisplay_TextChanged(object sender, EventArgs e)
-        {
-            path = textBoxPathDisplay.Text;
-        }
-
         private void secondsSelector_ValueChanged(object sender, EventArgs e)
         {
             time = (int)secondsSelector.Value;
@@ -36,12 +31,14 @@ namespace Slideshow
 
         private void buttonStartNormal_Click(object sender, EventArgs e)
         {
+            path = textBoxPathDisplay.Text;
             FormSlideshow slideshow = new FormSlideshow();
             slideshow.Show();
         }
 
         private void buttonStartRandom_Click(object sender, EventArgs e)
         {
+            path = textBoxPathDisplay.Text;
             FormSlideshowRandom slideshowRandom = new FormSlideshowRandom();
             slideshowRandom.Show();
         }

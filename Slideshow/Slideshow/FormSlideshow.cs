@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.IO;
+using System.Collections.Generic;
 
 namespace Slideshow
 {
     public partial class FormSlideshow : Form
     {
-        public static string[] pictures;
+        public static List<string> pictures = new List<string>();
         public static int currentImage;
         public static Timer pictureTime = new Timer();
         public static bool first;
@@ -18,9 +20,34 @@ namespace Slideshow
         //
         private void Form2_Load(object sender, EventArgs e)
         {
-            first = true;
-            pictures = System.IO.Directory.GetFiles(FormMainMenu.path);
             currentImage = 0;
+            first = true;
+            foreach (string file in System.IO.Directory.GetFiles(FormMainMenu.path))
+            {
+                switch (Path.GetExtension(file))
+                {
+                    case ".jpeg":
+                        pictures.Add(file);
+                        break;
+                    case ".jpg":
+                        pictures.Add(file);
+                        break;
+                    case ".png":
+                        pictures.Add(file);
+                        break;
+                    case ".tiff":
+                        pictures.Add(file);
+                        break;
+                    case ".gif":
+                        pictures.Add(file);
+                        break;
+                    case ".bmp":
+                        pictures.Add(file);
+                        break;
+                    default:
+                        break;
+                }
+            }
             pictureBox.ImageLocation = pictures[currentImage];
             pictureTime.Interval = (FormMainMenu.time * 1000);
             pictureTime.Tick += new EventHandler(pictureChange);
@@ -37,7 +64,7 @@ namespace Slideshow
                 pictureBox.ImageLocation = pictures[1];
                 first = false;
             }
-            else if (currentImage >= pictures.Length - 1)
+            else if (currentImage >= pictures.Count - 1)
             {
                 pictureBox.ImageLocation = pictures[currentImage];
                 currentImage = 0;
@@ -51,6 +78,8 @@ namespace Slideshow
 
         private void Form2_FormClosed(object sender, FormClosedEventArgs e)
         {
+            FormMainMenu.path = String.Empty;
+            pictures.Clear();
             pictureTime.Stop();
         }
     }

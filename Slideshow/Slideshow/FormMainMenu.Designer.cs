@@ -63,7 +63,6 @@
             this.textBoxPathDisplay.Name = "textBoxPathDisplay";
             this.textBoxPathDisplay.Size = new System.Drawing.Size(579, 22);
             this.textBoxPathDisplay.TabIndex = 1;
-            this.textBoxPathDisplay.TextChanged += new System.EventHandler(this.textBoxPathDisplay_TextChanged);
             // 
             // buttonPathSelect
             // 
