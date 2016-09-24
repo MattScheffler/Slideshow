@@ -6,6 +6,7 @@ namespace Slideshow
     public partial class FormMainMenu : Form
     {
         //values for the path to the pictures folder and the time between pictures
+        //these need to be accessed by the other forms
         public static string path;
         public static int time = 1;
 
@@ -29,6 +30,7 @@ namespace Slideshow
             time = (int)secondsSelector.Value;
         }
 
+        //The slideshow forms are not dialog boxes so multiple shows can be active if desired
         private void buttonStartNormal_Click(object sender, EventArgs e)
         {
             path = textBoxPathDisplay.Text;

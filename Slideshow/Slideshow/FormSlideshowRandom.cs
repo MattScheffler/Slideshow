@@ -10,7 +10,6 @@ namespace Slideshow
         public static List<string> picturesRandom = new List<string>();
         public static Random currentImageRandom = new Random();
         public static Timer pictureTimeRandom = new Timer();
-        public static bool firstRandom;
 
         public FormSlideshowRandom()
         {
@@ -19,7 +18,6 @@ namespace Slideshow
 
         private void FormSlideshowRandom_Load(object sender, EventArgs e)
         {
-            firstRandom = true;
             foreach(string file in System.IO.Directory.GetFiles(FormMainMenu.path))
             {
                 switch (Path.GetExtension(file))
@@ -46,7 +44,9 @@ namespace Slideshow
                         break;
                 }
             }
+
             pictureBoxRandom.ImageLocation = picturesRandom[currentImageRandom.Next(0, picturesRandom.Count)];
+            this.Text = System.IO.Path.GetFileName(pictureBoxRandom.ImageLocation);
             pictureTimeRandom.Interval = (FormMainMenu.time * 1000);
             pictureTimeRandom.Tick += new EventHandler(pictureChangeRandom);
             pictureTimeRandom.Start();
@@ -55,11 +55,11 @@ namespace Slideshow
         private void pictureChangeRandom(object sender, EventArgs e)
         {
             pictureBoxRandom.ImageLocation = picturesRandom[currentImageRandom.Next(0, picturesRandom.Count)];
+            this.Text = System.IO.Path.GetFileName(pictureBoxRandom.ImageLocation);
         }
 
         private void FormSlideshowRandom_FormClosed(object sender, FormClosedEventArgs e)
         {
-            FormMainMenu.path = String.Empty;
             picturesRandom.Clear();
             pictureTimeRandom.Stop();
         }

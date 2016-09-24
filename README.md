@@ -7,9 +7,8 @@ Has options for viewing a normal slideshow, or randomizing the images.
 
 Current issues:
 
-* The order of the images gets mixed up when running a slideshow from the same path twice.
+* The order the images are displayed in changes after multiple slideshow viewings
 * When maximized, the image is still in a window and not covering the full area of the monitor.
 * The UI is a bit plain, may be improved in the future.
-* Need to add some comments
 
 

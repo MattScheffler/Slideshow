@@ -10,18 +10,16 @@ namespace Slideshow
         public static List<string> pictures = new List<string>();
         public static int currentImage;
         public static Timer pictureTime = new Timer();
-        public static bool first;
 
         public FormSlideshow()
         {
             InitializeComponent();
         }
 
-        //
         private void Form2_Load(object sender, EventArgs e)
         {
             currentImage = 0;
-            first = true;
+            //filter to only get image files
             foreach (string file in System.IO.Directory.GetFiles(FormMainMenu.path))
             {
                 switch (Path.GetExtension(file))
@@ -48,7 +46,9 @@ namespace Slideshow
                         break;
                 }
             }
+
             pictureBox.ImageLocation = pictures[currentImage];
+            this.Text = System.IO.Path.GetFileName(pictureBox.ImageLocation);
             pictureTime.Interval = (FormMainMenu.time * 1000);
             pictureTime.Tick += new EventHandler(pictureChange);
             pictureTime.Start();
@@ -56,29 +56,22 @@ namespace Slideshow
 
         private void pictureChange(object sender, EventArgs e)
         {
-            //This first condition is only used once when the form is first loaded to
-            //avoid showing the first image twice or messing the order up some other way
-            if (first)
+            currentImage += 1;
+            if (currentImage == pictures.Count)
             {
-                currentImage += 2;
-                pictureBox.ImageLocation = pictures[1];
-                first = false;
-            }
-            else if (currentImage >= pictures.Count - 1)
-            {
-                pictureBox.ImageLocation = pictures[currentImage];
                 currentImage = 0;
+                pictureBox.ImageLocation = pictures[currentImage];
             }
             else
             {
                 pictureBox.ImageLocation = pictures[currentImage];
-                currentImage += 1;
             }
+
+            this.Text = System.IO.Path.GetFileName(pictureBox.ImageLocation);
         }
 
         private void Form2_FormClosed(object sender, FormClosedEventArgs e)
         {
-            FormMainMenu.path = String.Empty;
             pictures.Clear();
             pictureTime.Stop();
         }
